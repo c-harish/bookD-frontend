@@ -1,0 +1,132 @@
+<template>
+    <admin-navbar></admin-navbar>
+    <h2>Admin Dashboard</h2>
+    <!-- <button @click=testAxios> Test </button> -->
+    <add-venue></add-venue>
+
+    <div>
+        <body>
+            <!-- Example Code -->
+            <div class="d-flex flex-column">
+                <div class="p-2" v-for="venue in venues" :key="venue.id">
+                    <div>
+                        <div class="d-flex flex-row justify-content-evenly">
+                            <div>
+                                <h4> {{ venue.name }} </h4>
+                            </div>
+                            <div>
+                                <h6> {{ venue.place }} </h6>
+                            </div>
+                            <div>
+                                <h6> {{ venue.location }} </h6>
+                            </div>
+
+                        </div>
+                        <div class="d-flex flex-row justify-content-evenly">
+                            <add-show :venue_tickets="venue.capacity" :venue_id="venue.id"></add-show>
+                            <edit-venue :venue_name="venue.name" :venue_place="venue.place" :venue_location="venue.location"
+                                :venue_id="venue.id" :venue_tickets="venue.capacity">
+                            </edit-venue>
+                            <button @click="deleteVenue(venue.id)" type="button" class="btn btn-outline-dark">Delete Venue</button>
+
+
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-evenly flex-wrap">
+                                <div v-for="show in shows[venue.id]" :key="show.id">
+                                    <div>{{ show.name }}</div>
+                                    <div>{{ show.time }}</div>
+                                    <div>₹ {{ show.price }}</div>
+                                    <div class="d-flex flex-row justify-content-evenly">
+                                        <edit-show :show_name="show.name" :show_price="show.price" :show_tag="show.tag"
+                                            :show_time="show.time" :show_tickets="show.tickets" :show_rating="show.rating"
+                                            :show_id="show.id" :show_venue_id="show.venue_id">
+                                        </edit-show>
+                                        <button @click="deleteShow(show.id)" type="button" class="btn btn-outline-dark">Delete Show</button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End Example Code -->
+        </body>
+    </div>
+</template>
+
+<script>
+import AddVenue from "./AddVenue.vue"
+import EditVenue from "./EditVenue.vue"
+import AddShow from "./AddShow.vue"
+import EditShow from "./EditShow.vue"
+import axios from "axios";
+export default {
+    components: { AddVenue, AddShow, EditVenue, EditShow },
+    data() {
+        return {
+            venues: "",
+            shows: {},
+            delete_showid: "",
+            delete_venueid: ""
+        }
+    },
+    methods: {
+        getVenues() {
+            const path = "http://127.0.0.1:5000/venues";
+            const show_path = "http://127.0.0.1:5000/shows/"
+            axios.get(path)
+                .then((res) => {
+                    this.venues = res.data.venues;
+                    this.venues.forEach((venue) => {
+                        const showpath = show_path + venue.id;
+                        axios.get(showpath)
+                            .then((sres) => {
+                                this.shows[venue.id] = sres.data.shows;
+                            })
+                    })
+                }
+                )
+                .catch((err) => console.log(err))
+        },
+        deleteVenue(dvi) {
+            this.delete_venueid = dvi;
+            const delete_venue_path = `http://127.0.0.1:5000/venues/${this.delete_venueid}`  
+            const auth = {'headers': {'x-access-token': localStorage.getItem('token')}};
+            axios.delete(delete_venue_path, auth)
+                .then((dsres) => {
+                    if (dsres.data.message === "success"){
+                        console.log("venue delete complete success")
+                    }
+                })
+                .catch((err) =>
+                    console.log(err))
+        },
+        deleteShow(dsi) {
+            this.delete_showid = dsi;
+            const delete_show_path = `http://127.0.0.1:5000/shows/${this.delete_showid}`  
+            const auth = {'headers': {'x-access-token': localStorage.getItem('token')}};
+            axios.delete(delete_show_path, auth)
+                .then((dsres) => {
+                    console.log(dsres.data);
+                    if (dsres.data.message === "success"){
+                        console.log("show delete complete success")
+                    }
+                })
+                .catch((err) =>
+                    console.log(err))
+        },
+
+    },
+    created() {
+        this.getVenues();
+    },
+    // updated(){
+    //     this.getVenues();
+    // }
+}
+
+</script>
