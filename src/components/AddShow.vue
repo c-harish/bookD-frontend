@@ -1,10 +1,7 @@
 <template>
-    <!-- Button trigger modal -->
     <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" :data-bs-target="'#addShow' + venue_id">
         Add Show
     </button>
-
-    <!-- Modal -->
     <div class="modal fade modal-lg" :id="'addShow' + venue_id" tabindex="-1" aria-labelledby="addShowLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -58,7 +55,6 @@
                                 </tr>
                             </tbody>
                         </table>
-
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -74,6 +70,7 @@
 import axios from "axios";
 export default {
     props: ['venue_id', 'venue_tickets'],
+    emits: ['show-added'],
     data() {
         return {
             showName: "",
@@ -111,9 +108,8 @@ export default {
                 })
                 .catch((err) => console.log(err));
             this.$refs.CloseModal.click();
-
+            this.$emit('show-added');
         }
-
     }
 }
 

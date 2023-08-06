@@ -65,6 +65,7 @@
 <script>
 import axios from "axios";
 export default {
+    emits: ['venue-added'],
     data() {
         return {
             venueName : "",
@@ -92,6 +93,7 @@ export default {
                         this.venueLocation = "";
                         this.venueCapacity="";
                         this.$refs.CloseModal.click();
+                        this.$emit('venue-added');
                     }
                 })
                 .catch((err) => console.log(err));

@@ -1,10 +1,7 @@
 <template>
-    <!-- Button trigger modal -->
     <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" :data-bs-target="'#editShow' + show_id">
         Edit Show
     </button>
-
-    <!-- Modal -->
     <div class="modal fade modal-lg" :id="'editShow' + show_id" tabindex="-1" aria-labelledby="editShowLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -75,6 +72,7 @@
 import axios from "axios";
 export default {
     props: ['show_name', 'show_price', 'show_tag', 'show_time', 'show_id', 'show_rating', 'show_venue_id', 'show_tickets'],
+    emits: ['show-edited'],
     data() {
         return {
             showName: this.show_name,
@@ -105,6 +103,7 @@ export default {
                 .then((res) => {
                     if (res.data.message === "success") {
                         this.$refs.CloseModal.click();
+                        this.$emit('show-edited');
                     }
                 })
                 .catch((err) => console.log(err));

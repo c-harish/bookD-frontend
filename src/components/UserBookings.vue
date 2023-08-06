@@ -39,7 +39,6 @@
                                 @booking-rated="getBookings">
                     </rate-show>
                 </td>
-
             </tr>
         </tbody>
     </table>

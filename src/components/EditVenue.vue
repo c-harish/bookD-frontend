@@ -3,8 +3,6 @@
     <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" :data-bs-target="'#editVenue' + venue_id">
         Edit Venue
     </button>
-
-    <!-- Modal -->
     <div class="modal fade modal-lg" :id="'editVenue' + venue_id" tabindex="-1" aria-labelledby="editVenueLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -14,7 +12,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
                     <form :id="'editVenueForm' + venue_id" @submit.prevent="editVenue">
                         <table class="table table-borderless">
                             <tbody>
@@ -60,6 +57,7 @@
 import axios from "axios";
 export default {
     props: ['venue_name', 'venue_place', 'venue_location', 'venue_id', 'venue_tickets'],
+    emits: ['venue-edited'],
     data() {
         return {
             venueName: this.venue_name,
@@ -86,6 +84,7 @@ export default {
                     if (res.data.message === "success") {
                         console.log('venue edited successfully');
                         this.$refs.CloseModal.click();
+                        this.$emit('venue-edited');
                     }
                 })
                 .catch((err) => console.log(err));

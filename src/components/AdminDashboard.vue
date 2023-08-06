@@ -1,12 +1,9 @@
 <template>
     <admin-navbar></admin-navbar>
     <h2>Admin Dashboard</h2>
-    <!-- <button @click=testAxios> Test </button> -->
-    <add-venue></add-venue>
-
+    <add-venue @venue-added="getVenues"></add-venue>
     <div>
         <body>
-            <!-- Example Code -->
             <div class="d-flex flex-column">
                 <div class="p-2" v-for="venue in venues" :key="venue.id">
                     <div>
@@ -20,16 +17,13 @@
                             <div>
                                 <h6> {{ venue.location }} </h6>
                             </div>
-
                         </div>
                         <div class="d-flex flex-row justify-content-evenly">
-                            <add-show :venue_tickets="venue.capacity" :venue_id="venue.id"></add-show>
+                            <add-show :venue_tickets="venue.capacity" :venue_id="venue.id" @show-added="getVenues"></add-show>
                             <edit-venue :venue_name="venue.name" :venue_place="venue.place" :venue_location="venue.location"
-                                :venue_id="venue.id" :venue_tickets="venue.capacity">
+                                :venue_id="venue.id" :venue_tickets="venue.capacity" @venue-edited="getVenues">
                             </edit-venue>
                             <button @click="deleteVenue(venue.id)" type="button" class="btn btn-outline-dark">Delete Venue</button>
-
-
                         </div>
                         <div>
                             <div class="d-flex justify-content-evenly flex-wrap">
@@ -40,20 +34,16 @@
                                     <div class="d-flex flex-row justify-content-evenly">
                                         <edit-show :show_name="show.name" :show_price="show.price" :show_tag="show.tag"
                                             :show_time="show.time" :show_tickets="show.tickets" :show_rating="show.rating"
-                                            :show_id="show.id" :show_venue_id="show.venue_id">
+                                            :show_id="show.id" :show_venue_id="show.venue_id" @show-edited="getVenues">
                                         </edit-show>
                                         <button @click="deleteShow(show.id)" type="button" class="btn btn-outline-dark">Delete Show</button>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- End Example Code -->
         </body>
     </div>
 </template>
@@ -99,7 +89,8 @@ export default {
             axios.delete(delete_venue_path, auth)
                 .then((dsres) => {
                     if (dsres.data.message === "success"){
-                        console.log("venue delete complete success")
+                        console.log("venue delete complete success");
+                        this.getVenues();
                     }
                 })
                 .catch((err) =>
@@ -113,7 +104,8 @@ export default {
                 .then((dsres) => {
                     console.log(dsres.data);
                     if (dsres.data.message === "success"){
-                        console.log("show delete complete success")
+                        console.log("show delete complete success");
+                        this.getVenues();
                     }
                 })
                 .catch((err) =>
