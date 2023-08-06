@@ -14,19 +14,36 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
                     <form :id="'editVenueForm' + venue_id" @submit.prevent="editVenue">
-                        <div class="mb-3">
-                            <label for="venueName" class="form-label">Edit Venue Name</label>
-                            <input v-model="venueName" type="text" class="form-control" id="venueName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="venuePlace" class="form-label">Edit Venue Place</label>
-                            <input v-model="venuePlace" type="text" class="form-control" id="venuePlace" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="venueLocation" class="form-label">Edit Venue Location</label>
-                            <input v-model="venueLocation" type="text" class="form-control" id="venueLocation" required>
-                        </div>
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>                            
+                                        <label for="venueName" class="form-label">Edit Venue Name</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="venueName" type="text" class="form-control" id="venueName" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="venuePlace" class="form-label">Edit Venue Place</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="venuePlace" type="text" class="form-control" id="venuePlace" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="venueLocation" class="form-label">Edit Venue Location</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="venueLocation" type="text" class="form-control" id="venueLocation" required>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </form>
                 </div>
                 <div class="modal-footer">

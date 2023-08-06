@@ -22,38 +22,75 @@
                 </div>
                 <div class="modal-body">
                     <form :id="'bookShowForm' + show_id" @submit.prevent="bookShow">
-                        <div class="mb-3">
-                            <label for="showName" class="form-label"> Name</label>
-                            <input v-model="showName" type="text" class="form-control" id="showName" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showTime" class="form-label"> Time</label>
-                            <input v-model="showTime" type="text" class="form-control" id="showTime" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showTag" class="form-label"> Tag</label>
-                            <input v-model="showTag" type="text" class="form-control" id="showTag" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showRating" class="form-label"> Rating</label>
-                            <input v-model="showRating" type="text" class="form-control" id="showRating" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showPrice" class="form-label"> Price</label>
-                            <input v-model="showPrice" type="text" class="form-control" id="showPrice" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showTickets" class="form-label"> Total Seats</label>
-                            <input v-model="showTickets" type="text" class="form-control" id="showTickets" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showAvailableTickets" class="form-label"> Available Seats</label>
-                            <input :value="show_available_tickets" type="number" class="form-control" id="show_available_tickets" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="bookTickets" class="form-label"> Book Seats</label>
-                            <input v-model="bookTickets" type="number" min="0" max="show_available_tickets" class="form-control" id="bookTickets" required>
-                        </div>
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>                            
+                                        <label for="showName" class="form-label"> Name</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showName" type="text" class="form-control" id="showName" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showTime" class="form-label"> Time</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showTime" type="text" class="form-control" id="showTime" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showTag" class="form-label"> Tag</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showTag" type="text" class="form-control" id="showTag" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showRating" class="form-label"> Rating</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showRating" type="text" class="form-control" id="showRating" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showPrice" class="form-label"> Price</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showPrice" type="text" class="form-control" id="showPrice" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showTickets" class="form-label"> Total Seats</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showTickets" type="text" class="form-control" id="showTickets" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showAvailableTickets" class="form-label"> Available Seats</label>
+                                    </td>
+                                    <td>
+                                        <input :value="show_available_tickets" type="number" class="form-control" id="show_available_tickets" disabled>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="bookTickets" class="form-label"> Book Seats</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="bookTickets" type="number" min="0" max="show_available_tickets" class="form-control" id="bookTickets" required>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                         <div>{{ msg }}</div>
                     </form>
                 </div>

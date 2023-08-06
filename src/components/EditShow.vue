@@ -15,28 +15,50 @@
                 </div>
                 <div class="modal-body">
                     <form :id="'editShowForm' + show_id" @submit.prevent="editShow">
-                        <div class="mb-3">
-                            <label for="showName" class="form-label">Edit Show Name</label>
-                            <input v-model="showName" type="text" class="form-control" id="showName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showTime" class="form-label">Edit Show Time</label>
-                            <input v-model="showTime" type="text" class="form-control" id="showTime" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showTag" class="form-label">Edit Show Tag</label>
-                            <input v-model="showTag" type="text" class="form-control" id="showTag" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showRating" class="form-label">Edit Show Rating</label>
-                            <input v-model="showRating" type="text" class="form-control" id="showRating" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showPrice" class="form-label">Edit Show Price</label>
-                            <input v-model="showPrice" type="text" class="form-control" id="showPrice" required>
-                        </div>
-
-
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>                            
+                                        <label for="showName" class="form-label">Edit Show Name</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showName" type="text" class="form-control" id="showName" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showTime" class="form-label">Edit Show Time</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showTime" type="text" class="form-control" id="showTime" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showTag" class="form-label">Edit Show Tag</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showTag" type="text" class="form-control" id="showTag" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showRating" class="form-label">Edit Show Rating</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showRating" type="text" class="form-control" id="showRating" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showPrice" class="form-label">Edit Show Price</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showPrice" type="text" class="form-control" id="showPrice" required>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </form>
                 </div>
                 <div class="modal-footer">

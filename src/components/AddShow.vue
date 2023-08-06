@@ -14,33 +14,56 @@
                 </div>
                 <div class="modal-body">
                     <form :id="'addShowForm' + venue_id" @submit.prevent="submitShow">
-                        <div class="mb-3">
-                            <label for="showName" class="form-label">Show Name</label>
-                            <input v-model="showName" type="text" class="form-control" id="showName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showTime" class="form-label">Show Time</label>
-                            <input v-model="showTime" type="text" class="form-control" id="showTime" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showTag" class="form-label">Show Tag</label>
-                            <input v-model="showTag" type="text" class="form-control" id="showTag" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showPrice" class="form-label">Show Price</label>
-                            <input v-model="showPrice" type="number" class="form-control" id="showPrice" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="showRating" class="form-label">Show Rating</label>
-                            <input v-model="showRating" type="number" class="form-control" id="showRating" required>
-                        </div>
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>                            
+                                        <label for="showName" class="form-label">Show Name</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showName" type="text" class="form-control" id="showName" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showTime" class="form-label">Show Time</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showTime" type="text" class="form-control" id="showTime" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showTag" class="form-label">Show Tag</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showTag" type="text" class="form-control" id="showTag" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showPrice" class="form-label">Show Price</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showPrice" type="number" class="form-control" id="showPrice" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="showRating" class="form-label">Show Rating</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="showRating" type="number" class="form-control" id="showRating" required>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button ref="CloseModal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button :form="'addShowForm' + venue_id" type="submit" class="btn btn-outline-dark">Add</button>
-
                 </div>
             </div>
         </div>

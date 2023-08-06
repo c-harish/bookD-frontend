@@ -14,22 +14,42 @@
                 </div>
                 <div class="modal-body">
                     <form id="addVenueForm" @submit.prevent="submitVenue">
-                        <div class="mb-3">
-                            <label for="venueName" class="form-label">Venue Name</label>
-                            <input v-model="venueName" type="text" class="form-control" id="venueName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="venuePlace" class="form-label">Venue Place</label>
-                            <input v-model="venuePlace" type="text" class="form-control" id="venuePlace" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="venueLocation" class="form-label">Venue Location</label>
-                            <input v-model="venueLocation" type="text" class="form-control" id="venueLocation" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="venueCapacity" class="form-label">Venue Capacity</label>
-                            <input v-model="venueCapacity" type="number" class="form-control" id="venueCapacity" required>
-                        </div>
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td>                            
+                                        <label for="venueName" class="form-label">Venue Name</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="venueName" type="text" class="form-control" id="venueName" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="venuePlace" class="form-label">Venue Place</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="venuePlace" type="text" class="form-control" id="venuePlace" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="venueLocation" class="form-label">Venue Location</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="venueLocation" type="text" class="form-control" id="venueLocation" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="venueCapacity" class="form-label">Venue Capacity</label>
+                                    </td>
+                                    <td>
+                                        <input v-model="venueCapacity" type="number" class="form-control" id="venueCapacity" required>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </form>
                 </div>
                 <div class="modal-footer">
