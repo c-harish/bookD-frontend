@@ -13,6 +13,10 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/admin/summary">Summary</a>
                         </li>
+                        <form class="d-flex" role="search" v-if="currentRouteName === 'AdminDashboard'" @submit.prevent="adminSearch">
+                            <input v-model="searchKey" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
                         <li class="nav-item">
                             <a class="nav-link active" @click="logOut" aria-current="page" href="#">Log Out</a>
                         </li>
@@ -25,12 +29,26 @@
     
 <script>
 export default {
+    data() {
+        return {
+            searchKey: ""
+        }
+    },
+    emits: ['search-key'],
     methods: {
-        logOut(){
+        logOut() {
             localStorage.removeItem('token');
             this.$router.push('/');
+        },
+        adminSearch(){
+            this.$emit('search-key', this.searchKey);
         }
+    },
+    computed: {
+    currentRouteName() {
+        return this.$route.name;
     }
+}
 };
 </script>
     

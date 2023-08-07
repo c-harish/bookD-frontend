@@ -1,5 +1,5 @@
 <template>
-    <admin-navbar></admin-navbar>
+    <admin-navbar @search-key="adminSearch"></admin-navbar >
     <h2>Admin Dashboard</h2>
     <add-venue @venue-added="getVenues"></add-venue>
     <div>
@@ -67,20 +67,24 @@ export default {
     methods: {
         getVenues() {
             const path = "http://127.0.0.1:5000/venues";
-            const show_path = "http://127.0.0.1:5000/shows/"
-            axios.get(path)
+            const auth = {'headers': {'x-access-token': localStorage.getItem('token')}};
+            axios.get(path, auth)
                 .then((res) => {
                     this.venues = res.data.venues;
-                    this.venues.forEach((venue) => {
+                    this.getShows();
+                })
+                .catch((err) => console.log(err))
+        },
+        getShows() {
+            const show_path = "http://127.0.0.1:5000/shows?venueid=";
+            const auth = {'headers': {'x-access-token': localStorage.getItem('token')}};
+            this.venues.forEach((venue) => {
                         const showpath = show_path + venue.id;
-                        axios.get(showpath)
+                        axios.get(showpath, auth)
                             .then((sres) => {
                                 this.shows[venue.id] = sres.data.shows;
                             })
                     })
-                }
-                )
-                .catch((err) => console.log(err))
         },
         deleteVenue(dvi) {
             this.delete_venueid = dvi;
@@ -111,14 +115,38 @@ export default {
                 .catch((err) =>
                     console.log(err))
         },
+        adminSearch(sk){
+            this.searchVenues(sk);
+        },
+        searchVenues(sk) {
+            const path = `http://127.0.0.1:5000/venues/search?key=${sk}`;
+            console.log(path);
+            const auth = {'headers': {'x-access-token': localStorage.getItem('token')}};
+            axios.get(path, auth)
+                .then((res) => {
+                    this.venues = res.data.venues;
+                    this.searchShows(sk);
+                })
+                .catch((err) => console.log(err))
+        },
+        searchShows(sk) {
+            const show_path = `http://127.0.0.1:5000/shows/search?key=${sk}&venueid=`;
+            const auth = {'headers': {'x-access-token': localStorage.getItem('token')}};
+            this.venues.forEach((venue) => {
+                        const showpath = show_path + venue.id;
+                        axios.get(showpath, auth)
+                            .then((sres) => {
+                                console.log(sres.data.shows);
+                                this.shows[venue.id] = sres.data.shows;
+                            })
+                    })
+        },
 
     },
     created() {
         this.getVenues();
+        document.title = "Admin Dashboard";
     },
-    // updated(){
-    //     this.getVenues();
-    // }
 }
 
 </script>

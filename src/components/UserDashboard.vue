@@ -1,5 +1,5 @@
 <template>
-    <user-navbar></user-navbar>
+    <user-navbar @search-key="userSearch"></user-navbar>
     <h2>User Dashboard</h2>
     <div>
         <body>
@@ -12,7 +12,7 @@
                                 <h4> {{ venue.name }} </h4>
                             </div>
                             <div>
-                                <h6> {{ venue.place }} </h6>
+                                <h6> {{  venue.place }} </h6>
                             </div>
                             <div>
                                 <h6> {{ venue.location }} </h6>
@@ -70,7 +70,8 @@ export default {
     methods: {
         getVenues() {
             const path = "http://127.0.0.1:5000/venues";
-            axios.get(path)
+            const auth = {'headers': {'x-access-token': localStorage.getItem('token')}};
+            axios.get(path, auth)
                 .then((res) => {
                     this.venues = res.data.venues;
                     this.getShows();
@@ -78,10 +79,11 @@ export default {
                 .catch((err) => console.log(err))
         },
         getShows() {
-            const show_path = "http://127.0.0.1:5000/shows/";
+            const show_path = "http://127.0.0.1:5000/shows?venueid=";
+            const auth = {'headers': {'x-access-token': localStorage.getItem('token')}};
             this.venues.forEach((venue) => {
                         const showpath = show_path + venue.id;
-                        axios.get(showpath)
+                        axios.get(showpath, auth)
                             .then((sres) => {
                                 this.shows[venue.id] = sres.data.shows;
                                 this.getAvailableTickets();
@@ -90,22 +92,47 @@ export default {
         },
         getAvailableTickets(){
             const path = "http://127.0.0.1:5000/tickets";
-            axios.get(path)
+            const auth = {'headers': {'x-access-token': localStorage.getItem('token')}};
+            axios.get(path, auth)
                 .then((res) => {
                     if (res.data.message === 'success'){
                     this.available_tickets = res.data.available;
                     }
                 })
+        },
+        userSearch(sk){
+            this.searchVenues(sk);
+        },
+        searchVenues(sk) {
+            const path = `http://127.0.0.1:5000/venues/search?key=${sk}`;
+            console.log(path);
+            const auth = {'headers': {'x-access-token': localStorage.getItem('token')}};
+            axios.get(path, auth)
+                .then((res) => {
+                    this.venues = res.data.venues;
+                    this.searchShows(sk);
+                })
+                .catch((err) => console.log(err))
+        },
+        searchShows(sk) {
+            const show_path = `http://127.0.0.1:5000/shows/search?key=${sk}&venueid=`;
+            const auth = {'headers': {'x-access-token': localStorage.getItem('token')}};
+            this.venues.forEach((venue) => {
+                        const showpath = show_path + venue.id;
+                        axios.get(showpath, auth)
+                            .then((sres) => {
+                                console.log(sres.data.shows);
+                                this.shows[venue.id] = sres.data.shows;
+                                this.getAvailableTickets();
+                            })
+                    })
+        },
 
-        }
     },
     created() {
         this.getVenues();
-        // this.getShows();
+        document.title = "User Dashboard";
     },
-    // updated(){
-    //     this.getVenues();
-    // }
 }
 
 </script>

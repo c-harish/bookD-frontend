@@ -67,6 +67,7 @@ export default {
     },
     created() {
         this.getBookings();
+        document.title = "Bookings";
     },
 }
 </script>

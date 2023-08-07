@@ -16,6 +16,10 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/user/profile">Profile</a>
                         </li>
+                        <form class="d-flex" role="search" v-if="currentRouteName === 'UserDashboard'" @submit.prevent="userSearch">
+                            <input v-model="searchKey" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit"> Search </button>
+                        </form>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" @click="logOut" href="#">Log Out</a>
                         </li>
@@ -28,12 +32,26 @@
     
 <script>
 export default {
+    data() {
+        return {
+            searchKey: ""
+        }
+    },
+    emits: ['search-key'],
     methods: {
         logOut() {
             localStorage.removeItem('token');
             this.$router.push('/');
+        },
+        userSearch() {
+            this.$emit('search-key', this.searchKey);
         }
+    },
+    computed: {
+    currentRouteName() {
+        return this.$route.name;
     }
+}
 };
 </script>
     

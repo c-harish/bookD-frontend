@@ -48,6 +48,9 @@
                 .catch((err) => console.log(err));
             }
         },
+        created() {
+            document.title = "User Login";
+        }
     }
 
 </script>

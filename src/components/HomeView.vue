@@ -33,6 +33,7 @@ export default {
   },
   created() {
     this.getResponse();
+    document.title = "Home";
   },
 };
 </script>

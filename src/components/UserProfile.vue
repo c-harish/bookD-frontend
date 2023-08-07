@@ -43,7 +43,8 @@ export default {
         }
     },
     created(){
-        this.parseJwt(localStorage.getItem('token'))
+        this.parseJwt(localStorage.getItem('token'));
+        document.title = "Profile";
     },
 }
 </script>

@@ -69,6 +69,9 @@
                 .catch((err) => console.log(err));
             }
         },
+        created() {
+            document.title = "Sign Up";
+        }
     }
 
 </script>
