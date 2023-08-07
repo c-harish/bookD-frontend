@@ -13,7 +13,7 @@
                 <th scope="col">Price</th>
                 <th scope="col">Tickets</th>
                 <th scope="col">Rating</th>
-                <th scope="col"></th>
+                <td><button @click="get_csv" type="button" class="btn btn-light">Download as CSV</button></td>
             </tr>
         </thead>
         <tbody>
@@ -26,17 +26,12 @@
                 <td>{{ booking.venue_location }}</td>
                 <td>{{ booking.price }}</td>
                 <td>{{ booking.tickets }}</td>
-                <td v-if="booking.user_rating===null">{{ booking.show_rating }}</td>
+                <td v-if="booking.user_rating === null">{{ booking.show_rating }}</td>
                 <td v-else>{{ booking.user_rating }}</td>
                 <td>
-                    <rate-show :show_name="booking.show_name"
-                                :show_time="booking.show_time"
-                                :show_tag="booking.show_tag"
-                                :booking_price="booking.price"
-                                :booking_venue="booking.venue_name"
-                                :booking_tickets="booking.tickets"
-                                :booking_id="booking.booking_id"
-                                @booking-rated="getBookings">
+                    <rate-show :show_name="booking.show_name" :show_time="booking.show_time" :show_tag="booking.show_tag"
+                        :booking_price="booking.price" :booking_venue="booking.venue_name"
+                        :booking_tickets="booking.tickets" :booking_id="booking.booking_id" @booking-rated="getBookings">
                     </rate-show>
                 </td>
             </tr>
@@ -52,7 +47,8 @@ export default {
     data() {
         return {
             bookings: "",
-            rating: ""
+            rating: "",
+            file: ""
         }
     },
     methods: {
@@ -64,6 +60,21 @@ export default {
                     this.bookings = res.data.bookings;
                 })
         },
+        get_csv() {
+            const path = "http://127.0.0.1:5000/get_csv";
+            const auth = { 'headers': { 'x-access-token': localStorage.getItem('token') } };
+            axios.get(path, auth)
+                .then((res) => {
+                    var fileURL = window.URL.createObjectURL(new Blob([res.data]));
+                    var fURL = document.createElement('a');
+                    fURL.href = fileURL;
+                    fURL.setAttribute('download', 'bookings.csv');
+                    document.body.appendChild(fURL);
+                    fURL.click();
+                })
+                .catch((err) => {console.log(err)})
+
+        }
     },
     created() {
         this.getBookings();

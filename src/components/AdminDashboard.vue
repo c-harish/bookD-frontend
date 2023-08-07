@@ -4,8 +4,8 @@
     <add-venue @venue-added="getVenues"></add-venue>
     <div>
         <body>
-            <div class="d-flex flex-column">
-                <div class="p-2" v-for="venue in venues" :key="venue.id">
+            <div class="card d-flex flex-column">
+                <div class="card p-2" v-for="venue in venues" :key="venue.id">
                     <div>
                         <div class="d-flex flex-row justify-content-evenly">
                             <div>
@@ -27,7 +27,7 @@
                         </div>
                         <div>
                             <div class="d-flex justify-content-evenly flex-wrap">
-                                <div v-for="show in shows[venue.id]" :key="show.id">
+                                <div class="card" v-for="show in shows[venue.id]" :key="show.id">
                                     <div>{{ show.name }}</div>
                                     <div>{{ show.time }}</div>
                                     <div>₹ {{ show.price }}</div>
