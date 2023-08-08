@@ -1,7 +1,13 @@
 <template>
     <admin-navbar @search-key="adminSearch"></admin-navbar >
     <h2>Admin Dashboard</h2>
-    <add-venue @venue-added="getVenues"></add-venue>
+    <div class="d-flex flex-row justify-content-evenly">
+        <add-venue @venue-added="getVenues"></add-venue>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button @click="remindUsers" type="button" class="btn btn-outline-secondary">Remind Users</button>
+            <button @click="emailReport" type="button" class="btn btn-outline-secondary">Email Monthly Report</button>
+    </div>
+    </div>
     <div>
         <body>
             <div class="card d-flex flex-column">
@@ -141,12 +147,28 @@ export default {
                             })
                     })
         },
-
+        remindUsers() {
+            const remindpath = "http://127.0.0.1:5000/remind";
+            axios.get(remindpath)
+                .then((remind_res) => {
+                    if (remind_res.data.message === 'success'){
+                        console.log('Users Reminded thru Email')}
+                    })
+                .catch((err) => console.log(err))
+        },
+        emailReport() {
+            const reportpath = "http://127.0.0.1:5000/report";
+            axios.get(reportpath)
+                .then((report_res) => {
+                    if (report_res.data.message === 'success'){
+                        console.log('Report sent thru Email')}
+                    })
+                .catch((err) => console.log(err))
+        },
     },
     created() {
         this.getVenues();
         document.title = "Admin Dashboard";
     },
 }
-
 </script>

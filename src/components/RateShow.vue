@@ -1,10 +1,8 @@
 <template>
-    <!-- Button trigger modal -->
     <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" :data-bs-target="'#rateBooking' + booking_id">
         Rate
     </button>
 
-    <!-- Modal -->
     <div class="modal fade modal-lg" :id="'rateBooking' + booking_id" tabindex="-1" aria-labelledby="rateBookingLabel"
         aria-hidden="true">
         <div class="modal-dialog">

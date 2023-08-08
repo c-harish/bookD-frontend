@@ -39,7 +39,6 @@ export default {
             this.username = payload.username;
             this.useremail = payload.useremail;
             this.userlastlogin = payload.lastlogin;
-            // return JSON.parse(jsonPayload);
         }
     },
     created(){

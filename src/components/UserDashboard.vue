@@ -3,7 +3,6 @@
     <h2>User Dashboard</h2>
     <div>
         <body>
-            <!-- Example Code -->
             <div class="d-flex flex-column card">
                 <div class="p-2 card" v-for="venue in venues" :key="venue.id">
                     <div>
@@ -49,7 +48,6 @@
                 </div>
             </div>
 
-            <!-- End Example Code -->
         </body>
     </div>
 </template>

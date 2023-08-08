@@ -1,5 +1,4 @@
 <template>
-    <!-- Button trigger modal -->
     <div v-if="show_available_tickets > 0">
         <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" :data-bs-target="'#bookShow' + show_id">
             Book Show
@@ -11,7 +10,6 @@
         </button>
     </div>
 
-    <!-- Modal -->
     <div class="modal fade modal-lg" :id="'bookShow' + show_id" tabindex="-1" aria-labelledby="bookShowLabel"
         aria-hidden="true">
         <div class="modal-dialog">

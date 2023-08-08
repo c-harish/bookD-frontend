@@ -1,10 +1,8 @@
 <template>
-    <!-- Button trigger modal -->
     <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addVenue">
         Add Venue
     </button>
 
-    <!-- Modal -->
     <div class="modal fade modal-lg" id="addVenue" tabindex="-1" aria-labelledby="addVenueLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -97,8 +95,6 @@ export default {
                     }
                 })
                 .catch((err) => console.log(err));
-
-
             }
 
         }
